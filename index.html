@@ -4,23 +4,10 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <script src='https://cdnjs.cloudflare.com/ajax/libs/tesseract.js/1.0.19/tesseract.min.js'></script>
-    <title>Document</title>
+    <title>Price Data</title>
 </head>
 <body>
-    <script>
-        const { createWorker } = require('tesseract.js');
-
-        const worker = createWorker();
-
-        (async () => {
-        await worker.load();
-        await worker.loadLanguage('eng');
-        await worker.initialize('eng');
-        const { data: { text } } = await worker.recognize('/Users/spencer/Documents/Programming/price-logger/download (1).jpeg');
-        console.log(text);
-        await worker.terminate();
-        })();
-    </script>
+    <input type="text">
+    <input type="number">
 </body>
 </html>
