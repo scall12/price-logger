@@ -1,28 +1,26 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <script src="https://unpkg.com/tesseract.js@v2.0.2/dist/tesseract.min.js"></script>
     <title>Price Data</title>
-</head>
-<body>
+  </head>
+  <body>
     <section id="input">
-        <label for="store">Which store are you reporting data for?</label>
-        <select id="store">
-            <option value="Sainsbury">Sainsbury's</option>
-            <option value="Waitrose">Waitrose</option>
-        </select>
-    <input id="item" type="text">
-    <input id="price" type="number">
-    <input type="submit">
+      <label for="store">Which store are you reporting data for?</label>
+      <select id="store">
+        <option value="Sainsbury">Sainsbury's</option>
+        <option value="Waitrose">Waitrose</option>
+      </select>
+      <input id="item" type="text" />
+      <input id="price" type="number" />
+      <input type="submit" />
     </section>
-    <section id="search">
-
-    </section>
-    <section id="chart">
-
-    </section>
+    <section id="search"></section>
+    <section id="chart"></section>
+    <script src="tesseract.js"></script>
     <script src="app.js"></script>
-</body>
+  </body>
 </html>
