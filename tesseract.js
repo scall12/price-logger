@@ -1,4 +1,4 @@
-const worker = createWorker();
+const worker = new.Tesseract.createWorker();
 
 (async () => {
   await worker.load();
