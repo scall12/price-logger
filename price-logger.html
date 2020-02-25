@@ -5,20 +5,59 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta http-equiv="X-UA-Compatible" content="ie=edge" />
     <script src="https://unpkg.com/tesseract.js@v2.0.2/dist/tesseract.min.js"></script>
+    <link rel="stylesheet" href="/style.css" type="text/css" />
     <title>Price Data</title>
   </head>
   <body>
-    <section id="input">
-      <label for="store">Which store are you reporting data for?</label>
-      <select id="store">
-        <option value="Sainsbury">Sainsbury's</option>
-        <option value="Waitrose">Waitrose</option>
-      </select>
-      <input id="item" type="text" placeholder="Item" />
-      <input id="price" type="number" placeholder="Price" />
-      <input type="submit" />
+    <section id="intro">
+      <h1>Store Prices Database</h1>
+      <h2>Instructions:</h2>
+      <p>Type the item in the search bar that you are looking for. You can also add multiple items by separating each item with a semicolon.</p>
     </section>
-    <section id="search"></section>
+
+    <section id="search">
+      <form>
+        <div class="form-item">
+          <input id="search-bar" type="text" placeholder="Search" />
+        </div>
+      </form>
+    </section>
+
+    <section id="data-input" class="flex">
+      <form>
+        <div class="form-item">
+          <label for="store">Which store are you reporting data for?</label>
+          <select id="store">
+          <option value="Sainsbury">Sainsbury's</option>
+          <option value="Waitrose">Waitrose</option>
+          </select>
+        </div>
+        <div class="form-item">
+          <label for="item">Item</label>
+          <input name="item" id="item" type="text" placeholder="Apples" />
+        </div>
+        <div class="form-item">
+          <label for="price">Price</label>
+          <input name="price" id="price" type="number" placeholder="1.65" />
+        </div>
+       
+        <div class="form-item">
+          <p id="radio-p">Select the options that apply to the price</p>
+          <input id="kilo" name="options" type="checkbox" value="kilo"></input>
+          <label for="kilo">Price/kilogram</label>
+          <input id="pound" name="options" type="checkbox" value="pound"></input>
+          <label for="pound">Price/pound</label>
+          <input id="dollar" name="options" type="checkbox" value="dollar"></input>
+          <label for="dollar">US Dollars</label>
+          <input id="pounds" name="options" type="checkbox" value="pounds"></input>
+          <label for="pounds">UK Pounds</label>
+        </div>
+        <div class="form-item">
+          <input type="submit" />
+        </div>
+      </form>
+    </section>
+
     <section id="chart"></section>
     <script src="./dist/index.js"></script>
     <script src="js/tesseract.js"></script>
