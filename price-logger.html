@@ -24,12 +24,12 @@
     </section>
 
     <section id="data-input" class="flex">
-      <form>
+      <form action="/data" method="POST">
         <div class="form-item">
           <label for="store">Which store are you reporting data for?</label>
-          <select id="store">
-          <option value="Sainsbury">Sainsbury's</option>
-          <option value="Waitrose">Waitrose</option>
+          <select id="store" name="store">
+            <option name="sainsburys" value="sainsburys">Sainsbury's</option>
+            <option name="waitrose" value="waitrose">Waitrose</option>
           </select>
         </div>
         <div class="form-item">
@@ -38,7 +38,7 @@
         </div>
         <div class="form-item">
           <label for="price">Price</label>
-          <input name="price" id="price" type="number" placeholder="1.65" />
+          <input name="price" id="price" type="number" step="0.01" placeholder="1.65" />
         </div>
        
         <div class="form-item">
@@ -49,7 +49,7 @@
           <label for="pound">Price/pound</label>
           <input id="dollar" name="options" type="checkbox" value="dollar"></input>
           <label for="dollar">US Dollars</label>
-          <input id="pounds" name="options" type="checkbox" value="pounds"></input>
+          <input id="pounds" name="options" type="checkbox" value="pounds" checked></input>
           <label for="pounds">UK Pounds</label>
         </div>
         <div class="form-item">
