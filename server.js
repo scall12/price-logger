@@ -38,3 +38,17 @@ app.post('/data', (req, res) => {
 
   res.redirect('/');
 });
+
+app.post('/search', async (req, res) => {
+  connectMongo;
+
+  const c = await db.listCollections().toArray();
+
+  console.log(c);
+
+  // const { item } = req.body;
+  // let cursor = db.find({ item });
+  // console.log(cursor);
+
+  res.send('Searched.');
+});
