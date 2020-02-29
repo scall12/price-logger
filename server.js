@@ -2,6 +2,7 @@ const express = require('express');
 const bodyparser = require('body-parser');
 const MongoClient = require('mongodb').MongoClient;
 const assert = require('assert');
+const fs = require('fs');
 
 const app = express();
 
@@ -15,10 +16,7 @@ app.use(bodyparser.urlencoded({ extended: true }));
 app.use(express.static('public'));
 
 app.get('/', (req, res) => {
-  res.sendFile(__dirname + '/price-logger.html');
-  if (results.isEmpty) {
-    console.log('NOT EMPTY!');
-  }
+  res.sendFile(__dirname + '/views/price-logger.html');
 });
 
 app.listen(3010, () => {});
@@ -43,6 +41,10 @@ app.post('/search', async (req, res) => {
   connectMongo;
   const collections = await db.listCollections().toArray();
 
+  for (let result of results) {
+    results.pop();
+  }
+
   for (let coll of collections) {
     let cursor = await db
       .collection(coll.name)
@@ -51,11 +53,14 @@ app.post('/search', async (req, res) => {
     cursor[0].collection = coll.name;
     results.push(...cursor);
   }
-  res.redirect('/');
-  res.render('table', { data: results }, (err, html) => {
-    html = `<h1>${results}</h1>`;
-    res.send(html);
+  await fs.writeFile('results.json', JSON.stringify(results), err => {
+    if (err) {
+      throw new Error(err);
+    }
+    console.log('File has been created');
   });
 });
 
-app.get('/', (req, res) => {});
+app.get('/search/results.json', (req, res) => {
+  res.sendFile(__dirname + '/results.json');
+});
