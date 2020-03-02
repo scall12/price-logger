@@ -41,9 +41,7 @@ app.post('/search', async (req, res) => {
   connectMongo;
   const collections = await db.listCollections().toArray();
 
-  for (let result of results) {
-    results.pop();
-  }
+  results.forEach(result => result.pop());
 
   for (let coll of collections) {
     let cursor = await db
