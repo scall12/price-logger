@@ -26,10 +26,10 @@ app.post('/data', async (req, res) => {
       assert.equal(null, err);
       db = client.db('test');
 
-      const { store, item, price, options } = req.body;
+      const { item, store, price, options } = req.body;
       db.collection('price-logger').insertOne({
-        store,
         item,
+        store,
         price,
         options
       });
