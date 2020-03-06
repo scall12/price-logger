@@ -1,5 +1,5 @@
 window.addEventListener('load', event => {
-  console.log('loaded');
+  // Table boilerplate
   const chartDiv = document.querySelector('#chart-div');
   const table = document.createElement('table');
   const thead = document.createElement('thead');
@@ -8,34 +8,85 @@ window.addEventListener('load', event => {
   chartDiv.appendChild(table);
   table.append(thead, tbody);
 
+  // Retrieve JSON data from hidden <p>
   const cursor = document.querySelector('#cursor').innerText.trim();
   const data = JSON.parse(cursor);
+
+  data.forEach(obj => {
+    delete obj._id;
+  });
 
   let i = 1;
   let j = 1;
 
   // Fill table body
   for (let object of data) {
+    // Create and append tr elements in thead and tbody
+    let trHead = document.createElement('tr');
     if (i === 1) {
-      let trHead = document.createElement('tr');
       thead.appendChild(trHead);
     }
     let tr = document.createElement('tr');
     tr.setAttribute('id', `tr${i}`);
     tbody.appendChild(tr);
+
     for (let atr in object) {
+      // Create and append th elements
       let th = document.createElement('th');
       th.innerText = atr;
+      th.setAttribute('id', `th${j}`);
       trHead.appendChild(th);
+
+      // Create and append td elements
       let td = document.createElement('td');
-      td.innerText = atr;
+      td.innerText = object[atr];
+      td.setAttribute('id', `td${j}`);
       tr.appendChild(td);
       j++;
     }
     i++;
   }
 
-  console.log(data);
+  const tdList = document.querySelectorAll('tbody td');
+  const trList = document.querySelectorAll('tbody tr');
+  let divisor = tdList.length / trList.length;
+  const items = [];
+  const prices = [];
+
+  // Extract td elements in the item and price columns
+  for (let element of tdList) {
+    let id = parseInt(element.getAttribute('id').replace(/\D/gi, ''));
+    // Item column
+    if (id % divisor === 1) {
+      items.push({ id, value: element.innerText });
+    }
+    // Price column
+    if (id % divisor === 3) {
+      prices.push({ id, price: element.innerText });
+    }
+  }
+
+  console.log(items, prices);
+  for (let i = 0; i < items.length; i++) {
+    // Compare the items array and remove duplicates
+    if (items[i].value === items[i + 1].value) {
+      let element = document.querySelector(`#td${items[i].id}`);
+      element.setAttribute('rowspan', 2);
+      let deletion = document.querySelector(`#td${items[i + 1].id}`);
+      deletion.remove();
+    }
+
+    // Compare the price array and highlight row with lowest price
+    if (prices[i].price < prices[i + 1].price) {
+      //highlight row green
+      let element;
+    } else if (prices[i].price > prices[i + 1].price) {
+      //highlight row green
+    } else {
+      // highlight both rows yellow
+    }
+    i++;
+  }
 });
 
 // const searchBar = document.querySelector('#search-bar');
