@@ -60,7 +60,9 @@
 
     <section id="chart">
       <div id="chart-div">
-        <p id="cursor" hidden> <%= JSON.stringify(cursor) %>  </p>
+        <p id="cursor" hidden> <% if (locals.cursor){ %>
+          <%= JSON.stringify(cursor) %>
+        <% } %>  </p>
       </div>
     </section>
     <!-- <script src="./dist/index.js"></script> -->

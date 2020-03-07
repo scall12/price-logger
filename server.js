@@ -13,7 +13,7 @@ app.use(bodyparser.urlencoded({ extended: true }));
 app.use(express.static('public'));
 
 app.get('/', (req, res) => {
-  res.sendFile(__dirname + '/views/index.ejs');
+  res.render(__dirname + '/views/index.ejs');
 });
 
 app.listen(3010, () => {});
@@ -22,12 +22,12 @@ app.post('/data', async (req, res) => {
   await MongoClient.connect(
     process.env.MONGODB_URI,
     { useUnifiedTopology: true },
-    (err, client) => {
+    async (err, client) => {
       assert.equal(null, err);
-      db = client.db('test');
+      const db = client.db('test');
 
       const { item, store, price, options } = req.body;
-      db.collection('price-logger').insertOne({
+      await db.collection('price-logger').insertOne({
         item,
         store,
         price,
@@ -59,8 +59,4 @@ app.post('/', async (req, res) => {
       client.close();
     }
   );
-});
-
-app.get('/search/results.json', (req, res) => {
-  res.sendFile(__dirname + '/results.json');
 });
