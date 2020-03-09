@@ -25,13 +25,13 @@
         </form>
       </section>
 
-      <section id="data-input" class="flex form-group">
+      <section id="data-input" class="form-group">
         <h2>Input New Item Data</h2>
         <form action="/data" method="POST">
           <div class="form-item">
             <label for="store">Which store are you reporting data for?</label>
             <select id="store" name="store">
-              <option name="sainsburys" value="sainsburys">Sainsbury's</option>
+              <option name="sainsburys" value="sainsbury's">Sainsbury's</option>
               <option name="waitrose" value="waitrose">Waitrose</option>
             </select>
           </div>
@@ -44,16 +44,27 @@
             <input name="price" id="price" type="number" step="0.01" placeholder="1.65" />
           </div>
         
-          <div class="form-item">
+          <div class="form-item flex">
             <p id="radio-p">Select the options that apply to the price</p>
-            <input id="kilo" name="options" type="checkbox" value="kilo"></input>
-            <label for="kilo">Price/kg</label>
-            <input id="pound" name="options" type="checkbox" value="pound"></input>
-            <label for="pound">Price/lb</label>
-            <input id="dollar" name="options" type="checkbox" value="USD"></input>
-            <label for="dollar">USD</label>
-            <input id="pounds" name="options" type="checkbox" value="GBP" checked></input>
-            <label for="pounds">GBP</label>
+            <div id="check-div" class="flex">
+              <div class="check-item">
+                <input id="kilo" name="options" type="checkbox" value="kilo"></input>
+                <label for="kilo">Price/kg</label>
+              </div>
+              <div class="check-item">
+                <input id="pound" name="options" type="checkbox" value="pound"></input>
+                <label for="pound">Price/lb</label>
+              </div>
+              <div class="check-item">
+                <input id="dollar" name="options" type="checkbox" value="USD"></input>
+                <label for="dollar">USD</label>
+              </div>
+              <div class="check-item">
+                <input id="pounds" name="options" type="checkbox" value="GBP" checked></input>
+                <label for="pounds">GBP</label>
+              </div>        
+            </div>
+            
           </div>
           <div class="form-item">
             <input type="submit" />
