@@ -2,8 +2,9 @@ require('dotenv').config();
 
 const express = require('express');
 const bodyparser = require('body-parser');
-const MongoClient = require('mongodb').MongoClient;
-const assert = require('assert');
+
+const searchRouter = require('./routes/search');
+const inputRouter = require('./routes/input');
 
 const app = express();
 
@@ -11,52 +12,11 @@ app.set('view engine', 'ejs');
 
 app.use(bodyparser.urlencoded({ extended: true }));
 app.use(express.static('public'));
+app.use(searchRouter);
+app.use(inputRouter);
 
 app.get('/', (req, res) => {
   res.render(__dirname + '/views/index.ejs');
 });
 
 app.listen(3010, () => {});
-
-app.post('/data', async (req, res) => {
-  await MongoClient.connect(
-    process.env.MONGODB_URI,
-    { useUnifiedTopology: true },
-    async (err, client) => {
-      assert.equal(null, err);
-      const db = client.db('test');
-
-      const { item, store, price, options } = req.body;
-      await db.collection('price-logger').insertOne({
-        item,
-        store,
-        price,
-        options
-      });
-      res.redirect('/');
-
-      client.close();
-    }
-  );
-});
-
-app.post('/', async (req, res) => {
-  await MongoClient.connect(
-    process.env.MONGODB_URI,
-    { useUnifiedTopology: true },
-    async (err, client) => {
-      assert.equal(null, err);
-      const db = client.db('test');
-
-      let cursor = await db
-        .collection('price-logger')
-        .find({ item: req.body.item })
-        .toArray();
-
-      res.render('index', {
-        cursor
-      });
-      client.close();
-    }
-  );
-});
