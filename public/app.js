@@ -43,6 +43,15 @@ window.addEventListener('load', event => {
       td.innerText = object[atr];
       td.setAttribute('id', `td${j}`);
       tr.appendChild(td);
+
+      // Add currency char
+      if (parseInt(td.innerText)) {
+        if (object.options.includes('GBP')) {
+          td.innerText = '£'.concat(object[atr].toString());
+        } else if (object.options.includes('USD')) {
+          td.innerText = '$'.concat(object[atr].toString());
+        }
+      }
       j++;
     }
     i++;
@@ -90,8 +99,8 @@ window.addEventListener('load', event => {
       // highlight both rows yellow
       let row1 = document.querySelector(`#td${prices[i].id}`).parentNode;
       let row2 = document.querySelector(`#td${prices[i + 1].id}`).parentNode;
-      row1.classList.add('highlight-yellow');
-      row2.classList.add('highlight-yellow');
+      row1.classList.add('no-highlight');
+      row2.classList.add('no-highlight');
     }
     i++;
   }
