@@ -5,7 +5,7 @@
   --accent-color-red: #ff6b6b;
   --accent-color-silver: #848c8e;
   --table-green: #2ecc40;
-  --table-yellow: yellow;
+  --table-yellow: rgb(255, 255, 28);
 }
 
 body {
@@ -25,6 +25,7 @@ h2 {
 
 p {
   margin-top: 0.5rem;
+  width: 100%;
 }
 
 section {
@@ -39,7 +40,6 @@ input {
 }
 
 input[type='checkbox'] {
-  display: inline-block;
   width: 1.25rem;
 }
 
@@ -59,7 +59,7 @@ td {
 .flex {
   display: flex;
   flex-direction: column;
-  flex-wrap: nowrap;
+  flex-wrap: wrap;
 }
 
 .form-group {
@@ -69,6 +69,10 @@ td {
 
 .form-item {
   margin: 1rem 0rem;
+}
+
+.check-item {
+  width: 50%;
 }
 
 .highlight-green {
@@ -114,4 +118,8 @@ td {
 
 #data-input {
   margin-top: 0px;
+}
+
+#check-div {
+  height: 50px;
 }
