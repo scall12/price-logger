@@ -72,7 +72,7 @@ window.addEventListener('load', event => {
     if (items[i].value === items[i + 1].value) {
       let element = document.querySelector(`#td${items[i].id}`);
       element.setAttribute('rowspan', 2);
-      element.setAttribute('style', 'background-color:white');
+      element.classList.add('no-highlight');
       let deletion = document.querySelector(`#td${items[i + 1].id}`);
       deletion.remove();
     }
@@ -81,32 +81,18 @@ window.addEventListener('load', event => {
     if (prices[i].price < prices[i + 1].price) {
       //highlight row green
       let row = document.querySelector(`#td${prices[i].id}`).parentNode;
-      row.setAttribute('style', 'background-color:#2ECC40');
+      row.classList.add('highlight-green');
     } else if (prices[i].price > prices[i + 1].price) {
       //highlight row green
       let row = document.querySelector(`#td${prices[i + 1].id}`).parentNode;
-      row.setAttribute('style', 'background-color:#2ECC40');
+      row.classList.add('highlight-green');
     } else {
       // highlight both rows yellow
       let row1 = document.querySelector(`#td${prices[i].id}`).parentNode;
       let row2 = document.querySelector(`#td${prices[i + 1].id}`).parentNode;
-      row1.setAttribute('style', 'background-color:yellow');
-      row2.setAttribute('style', 'background-color:yellow');
+      row1.classList.add('highlight-yellow');
+      row2.classList.add('highlight-yellow');
     }
     i++;
   }
 });
-
-// Table Styling
-
-let style = document.createElement('style');
-style.innerHTML = `
-            tr{
-                border-style: solid;
-                border-color: black;
-                border-width: 0.1px;
-                text-transform: capitalize;
-            }
-        `;
-let script = document.querySelector('body script');
-script.parentNode.insertBefore(style, script);

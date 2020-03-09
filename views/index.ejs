@@ -15,55 +15,59 @@
       <p>Type the item in the search bar that you are looking for. You can also add multiple items by separating each item with a semicolon.</p>
     </section>
 
-    <section id="search">
-      <form action="/" method="POST">
-        <div class="form-item">
-          <input id="search-bar" type="text" placeholder="Search" name="item"/>
-        </div>
-      </form>
-    </section>
+    <section id="main">
+      <section id="search" class="form-group">
+        <h2>Search</h2>
+        <form action="/" method="POST">
+          <div class="form-item">
+            <input id="search-bar" type="text" placeholder="Oranges; Bananas; Oatmeal" name="item"/>
+          </div>
+        </form>
+      </section>
 
-    <section id="data-input" class="flex">
-      <form action="/data" method="POST">
-        <div class="form-item">
-          <label for="store">Which store are you reporting data for?</label>
-          <select id="store" name="store">
-            <option name="sainsburys" value="sainsburys">Sainsbury's</option>
-            <option name="waitrose" value="waitrose">Waitrose</option>
-          </select>
-        </div>
-        <div class="form-item">
-          <label for="item">Item</label>
-          <input name="item" id="item" type="text" placeholder="Apples" />
-        </div>
-        <div class="form-item">
-          <label for="price">Price</label>
-          <input name="price" id="price" type="number" step="0.01" placeholder="1.65" />
-        </div>
-       
-        <div class="form-item">
-          <p id="radio-p">Select the options that apply to the price</p>
-          <input id="kilo" name="options" type="checkbox" value="kilo"></input>
-          <label for="kilo">Price/kg</label>
-          <input id="pound" name="options" type="checkbox" value="pound"></input>
-          <label for="pound">Price/lb</label>
-          <input id="dollar" name="options" type="checkbox" value="USD"></input>
-          <label for="dollar">USD</label>
-          <input id="pounds" name="options" type="checkbox" value="GBP" checked></input>
-          <label for="pounds">GBP</label>
-        </div>
-        <div class="form-item">
-          <input type="submit" />
-        </div>
-      </form>
-    </section>
+      <section id="data-input" class="flex form-group">
+        <h2>Input New Item Data</h2>
+        <form action="/data" method="POST">
+          <div class="form-item">
+            <label for="store">Which store are you reporting data for?</label>
+            <select id="store" name="store">
+              <option name="sainsburys" value="sainsburys">Sainsbury's</option>
+              <option name="waitrose" value="waitrose">Waitrose</option>
+            </select>
+          </div>
+          <div class="form-item">
+            <label for="item">Item</label>
+            <input name="item" id="item" type="text" placeholder="Apples" />
+          </div>
+          <div class="form-item">
+            <label for="price">Price</label>
+            <input name="price" id="price" type="number" step="0.01" placeholder="1.65" />
+          </div>
+        
+          <div class="form-item">
+            <p id="radio-p">Select the options that apply to the price</p>
+            <input id="kilo" name="options" type="checkbox" value="kilo"></input>
+            <label for="kilo">Price/kg</label>
+            <input id="pound" name="options" type="checkbox" value="pound"></input>
+            <label for="pound">Price/lb</label>
+            <input id="dollar" name="options" type="checkbox" value="USD"></input>
+            <label for="dollar">USD</label>
+            <input id="pounds" name="options" type="checkbox" value="GBP" checked></input>
+            <label for="pounds">GBP</label>
+          </div>
+          <div class="form-item">
+            <input type="submit" />
+          </div>
+        </form>
+      </section>
 
-    <section id="chart">
-      <div id="chart-div">
-        <p id="cursor" hidden> <% if (locals.cursor){ %>
-          <%= JSON.stringify(cursor) %>
-        <% } %>  </p>
-      </div>
+      <section id="chart">
+        <div id="chart-div">
+          <p id="cursor" hidden> <% if (locals.cursor){ %>
+            <%= JSON.stringify(cursor) %>
+          <% } %>  </p>
+        </div>
+      </section>
     </section>
     <!-- <script src="./dist/index.js"></script> -->
     <!-- <script src="js/tesseract.js"></script>
