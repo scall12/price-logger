@@ -7,6 +7,13 @@
   --table-green: #2ecc40;
 }
 
+@media (min-width: 760px) {
+  #intro,
+  #main {
+    max-width: 720px;
+  }
+}
+
 body {
   background-color: var(--main-bg-color);
   color: var(--main-text-color);
@@ -32,10 +39,16 @@ section {
   /* border-style: solid; */
 }
 
-input {
+input,
+select {
   height: 1rem;
   width: 100%;
   border-radius: 0.3rem;
+  box-sizing: border-box;
+  height: 1.5rem;
+  padding: 0.2rem 0.5rem;
+  border: 1px solid var(--accent-color-silver);
+  margin-top: 0.3rem;
 }
 
 input[type='checkbox'] {
@@ -74,6 +87,10 @@ td {
   width: 50%;
 }
 
+.priceWeight {
+  text-transform: none;
+}
+
 .highlight-green {
   background-color: var(--table-green);
 }
@@ -101,12 +118,13 @@ td {
 #main {
   border-style: none;
   border-width: 1px;
-  width: 50%;
+
   background-color: var(--form-bg-color);
   padding: 1rem 2rem;
 }
 
-#intro {
+#intro,
+#main {
   width: 50%;
 }
 
