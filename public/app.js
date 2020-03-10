@@ -29,7 +29,7 @@ window.addEventListener('load', event => {
 
     for (let atr in object) {
       // Skip creating and populating table for these key pairs
-      const skipCols = ['_id', 'currency'];
+      const skipCols = ['_id', 'currency', 'priceWeightSelect'];
       if (skipCols.includes(atr)) {
         continue;
       }
@@ -44,15 +44,23 @@ window.addEventListener('load', event => {
       let td = document.createElement('td');
       td.innerText = object[atr];
       td.setAttribute('id', `td${j}`);
+      td.classList.add(`${atr}`);
       tr.appendChild(td);
 
       // Add currency char
-      if (parseInt(td.innerText)) {
+      if (parseFloat(td.innerText)) {
         if (object.currency === 'gbp') {
           td.innerText = '£'.concat(object[atr].toString());
-        } else if (object.options === 'usd') {
+        } else if (object.currency === 'usd') {
           td.innerText = '$'.concat(object[atr].toString());
         }
+      }
+
+      // If price/weight data exists, then combine the
+      // price/weight number with the descriptor string
+      if (td.classList.contains('priceWeight')) {
+        th.innerText = 'Price/Weight';
+        td.innerText = td.innerText.concat('/', object['priceWeightSelect']);
       }
       j++;
     }
@@ -64,8 +72,6 @@ window.addEventListener('load', event => {
   let divisor = tdList.length / trList.length;
   const items = [];
   const prices = [];
-
-  // Delete Currency column
 
   // Extract td elements in the item and price columns
   for (let element of tdList) {
