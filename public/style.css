@@ -103,6 +103,10 @@ td {
   background-color: var(--form-bg-color);
 }
 
+.rankBy {
+  color: var(--table-green);
+}
+
 #intro {
   border-style: none;
 }

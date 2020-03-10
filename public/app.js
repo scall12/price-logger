@@ -38,6 +38,7 @@ window.addEventListener('load', event => {
       let th = document.createElement('th');
       th.innerText = atr;
       th.setAttribute('id', `th${j}`);
+      th.classList.add(`${atr}`);
       trHead.appendChild(th);
 
       // Create and append td elements
@@ -67,11 +68,13 @@ window.addEventListener('load', event => {
     i++;
   }
 
+  // Remove item duplicates and highlight lowest price row
   const tdList = document.querySelectorAll('tbody td');
   const trList = document.querySelectorAll('tbody tr');
   let divisor = tdList.length / trList.length;
   const items = [];
   const prices = [];
+  const priceWeights = [];
 
   // Extract td elements in the item and price columns
   for (let element of tdList) {
@@ -82,36 +85,65 @@ window.addEventListener('load', event => {
     }
     // Price column
     if (id % divisor === 3) {
-      prices.push({ id, price: element.innerText });
+      prices.push({ id, value: element.innerText });
+    }
+    // Price/Weight column
+    if (id % divisor === 0) {
+      priceWeights.push({ id, value: element.innerText });
     }
   }
 
-  for (let i = 0; i < items.length; i++) {
-    // Compare the items array and remove duplicates
-    if (items[i].value === items[i + 1].value) {
-      let element = document.querySelector(`#td${items[i].id}`);
-      element.setAttribute('rowspan', 2);
-      element.classList.add('no-highlight');
-      let deletion = document.querySelector(`#td${items[i + 1].id}`);
-      deletion.remove();
-    }
+  removeItemDuplicates(items);
+  rankBy(prices);
 
+  // Highlight row by either price or price/weight
+  const thPrice = document.querySelector('thead .price');
+  const thPriceWeight = document.querySelector('thead .priceWeight');
+
+  thPrice.classList.add('rankBy');
+  thPrice.addEventListener('click', () => {
+    thPriceWeight.classList.remove('rankBy');
+    thPrice.classList.add('rankBy');
+    rankBy(prices);
+  });
+  thPriceWeight.addEventListener('click', () => {
+    thPrice.classList.remove('rankBy');
+    thPriceWeight.classList.add('rankBy');
+    rankBy(priceWeights);
+  });
+});
+
+function rankBy(arr) {
+  for (let i = 0; i < arr.length; i++) {
     // Compare the price array and highlight row with lowest price
-    if (prices[i].price < prices[i + 1].price) {
+    let row1 = document.querySelector(`#td${arr[i].id}`).parentNode;
+    let row2 = document.querySelector(`#td${arr[i + 1].id}`).parentNode;
+    if (arr[i].value < arr[i + 1].value) {
       //highlight row green
-      let row = document.querySelector(`#td${prices[i].id}`).parentNode;
-      row.classList.add('highlight-green');
-    } else if (prices[i].price > prices[i + 1].price) {
+      row1.classList.add('highlight-green');
+      row2.classList.remove('highlight-green');
+    } else if (arr[i].value > arr[i + 1].value) {
       //highlight row green
-      let row = document.querySelector(`#td${prices[i + 1].id}`).parentNode;
-      row.classList.add('highlight-green');
+      row2.classList.add('highlight-green');
+      row1.classList.remove('highlight-green');
     } else {
-      // highlight both rows yellow
-      let row1 = document.querySelector(`#td${prices[i].id}`).parentNode;
-      let row2 = document.querySelector(`#td${prices[i + 1].id}`).parentNode;
-      row1.classList.add('no-highlight');
-      row2.classList.add('no-highlight');
+      row1.classList.remove('highlight-green');
+      row2.classList.remove('highlight-green');
     }
     i++;
   }
-});
+}
+
+function removeItemDuplicates(arr) {
+  // Compare the items array and remove duplicates
+  for (let i = 0; i < arr.length; i++) {
+    if (arr[i].value === arr[i + 1].value) {
+      let element = document.querySelector(`#td${arr[i].id}`);
+      element.setAttribute('rowspan', 2);
+      element.classList.add('no-highlight');
+      let deletion = document.querySelector(`#td${arr[i + 1].id}`);
+      deletion.remove();
+    }
+    i++;
+  }
+}
