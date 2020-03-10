@@ -1,7 +1,7 @@
 {
   "name": "price-logger",
-  "version": "1.0.0",
-  "description": "",
+  "version": "1.1.0",
+  "description": "This price-logger allows for single item entry and search with basic option selection and price-data display.",
   "main": "app.js",
   "scripts": {
     "dev": "nodemon server.js"
