@@ -28,17 +28,27 @@
       <section id="data-input" class="form-group">
         <h2>Input New Item Data</h2>
         <form action="/data" method="POST">
-          <div class="form-item">
+          <div class="form-item flex">
             <label for="store">Which store are you reporting data for?</label>
             <select id="store" name="store">
               <option name="sainsburys" value="sainsbury's">Sainsbury's</option>
               <option name="waitrose" value="waitrose">Waitrose</option>
             </select>
           </div>
+
           <div class="form-item">
             <label for="item">Item</label>
             <input name="item" id="item" type="text" placeholder="Apples" />
           </div>
+
+          <div class="form-item flex">
+            <label for="currency">Currency</label>
+            <select id="currency" name="currency">
+              <option name="dollars" value="gbp">GBP</option>
+              <option name="pounds" value="usd">USD</option>
+            </select>
+          </div>
+
           <div class="form-item">
             <label for="price">Price</label>
             <input name="price" id="price" type="number" step="0.01" placeholder="1.65" />
@@ -54,17 +64,8 @@
               <div class="check-item">
                 <input id="pound" name="options" type="checkbox" value="pound"></input>
                 <label for="pound">Price/lb</label>
-              </div>
-              <div class="check-item">
-                <input id="dollar" name="options" type="checkbox" value="USD"></input>
-                <label for="dollar">USD</label>
-              </div>
-              <div class="check-item">
-                <input id="pounds" name="options" type="checkbox" value="GBP" checked></input>
-                <label for="pounds">GBP</label>
-              </div>        
+              </div>     
             </div>
-            
           </div>
           <div class="form-item">
             <input type="submit" />

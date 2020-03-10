@@ -13,7 +13,7 @@ router.post('/', async (req, res) => {
       const db = client.db('test');
 
       let cursor = await db
-        .collection('price-logger')
+        .collection('adjust-pricing')
         .find({ item: req.body.item })
         .toArray();
 

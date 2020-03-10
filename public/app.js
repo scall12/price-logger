@@ -13,10 +13,6 @@ window.addEventListener('load', event => {
   const data = JSON.parse(cursor);
   document.querySelector('#cursor').remove();
 
-  data.forEach(obj => {
-    delete obj._id;
-  });
-
   let i = 1;
   let j = 1;
 
@@ -32,6 +28,12 @@ window.addEventListener('load', event => {
     tbody.appendChild(tr);
 
     for (let atr in object) {
+      // Skip creating and populating table for these key pairs
+      const skipCols = ['_id', 'currency'];
+      if (skipCols.includes(atr)) {
+        continue;
+      }
+
       // Create and append th elements
       let th = document.createElement('th');
       th.innerText = atr;
@@ -46,9 +48,9 @@ window.addEventListener('load', event => {
 
       // Add currency char
       if (parseInt(td.innerText)) {
-        if (object.options.includes('GBP')) {
+        if (object.currency === 'gbp') {
           td.innerText = '£'.concat(object[atr].toString());
-        } else if (object.options.includes('USD')) {
+        } else if (object.options === 'usd') {
           td.innerText = '$'.concat(object[atr].toString());
         }
       }
@@ -62,6 +64,8 @@ window.addEventListener('load', event => {
   let divisor = tdList.length / trList.length;
   const items = [];
   const prices = [];
+
+  // Delete Currency column
 
   // Extract td elements in the item and price columns
   for (let element of tdList) {

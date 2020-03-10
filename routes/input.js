@@ -12,10 +12,11 @@ router.post('/data', async (req, res) => {
       assert.equal(null, err);
       const db = client.db('test');
 
-      const { item, store, price, options } = req.body;
-      await db.collection('price-logger').insertOne({
+      const { item, store, currency, price, options } = req.body;
+      await db.collection('adjust-pricing').insertOne({
         item,
         store,
+        currency,
         price,
         options
       });
