@@ -69,29 +69,9 @@ window.addEventListener('load', event => {
   }
 
   // Remove item duplicates and highlight lowest price row
-  const tdList = document.querySelectorAll('tbody td');
-  const trList = document.querySelectorAll('tbody tr');
-  let divisor = tdList.length / trList.length;
-  const items = [];
-  const prices = [];
-  const priceWeights = [];
-
-  // Extract td elements in the item and price columns
-  for (let element of tdList) {
-    let id = parseInt(element.getAttribute('id').replace(/\D/gi, ''));
-    // Item column
-    if (id % divisor === 1) {
-      items.push({ id, value: element.innerText });
-    }
-    // Price column
-    if (id % divisor === 3) {
-      prices.push({ id, value: element.innerText });
-    }
-    // Price/Weight column
-    if (id % divisor === 0) {
-      priceWeights.push({ id, value: element.innerText });
-    }
-  }
+  const items = document.querySelectorAll('tbody .item');
+  const prices = document.querySelectorAll('tbody .price');
+  const priceWeights = document.querySelectorAll('tbody .priceWeight');
 
   removeItemDuplicates(items);
   rankBy(prices);
@@ -112,38 +92,3 @@ window.addEventListener('load', event => {
     rankBy(priceWeights);
   });
 });
-
-function rankBy(arr) {
-  for (let i = 0; i < arr.length; i++) {
-    // Compare the price array and highlight row with lowest price
-    let row1 = document.querySelector(`#td${arr[i].id}`).parentNode;
-    let row2 = document.querySelector(`#td${arr[i + 1].id}`).parentNode;
-    if (arr[i].value < arr[i + 1].value) {
-      //highlight row green
-      row1.classList.add('highlight-green');
-      row2.classList.remove('highlight-green');
-    } else if (arr[i].value > arr[i + 1].value) {
-      //highlight row green
-      row2.classList.add('highlight-green');
-      row1.classList.remove('highlight-green');
-    } else {
-      row1.classList.remove('highlight-green');
-      row2.classList.remove('highlight-green');
-    }
-    i++;
-  }
-}
-
-function removeItemDuplicates(arr) {
-  // Compare the items array and remove duplicates
-  for (let i = 0; i < arr.length; i++) {
-    if (arr[i].value === arr[i + 1].value) {
-      let element = document.querySelector(`#td${arr[i].id}`);
-      element.setAttribute('rowspan', 2);
-      element.classList.add('no-highlight');
-      let deletion = document.querySelector(`#td${arr[i + 1].id}`);
-      deletion.remove();
-    }
-    i++;
-  }
-}
