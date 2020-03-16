@@ -5,7 +5,6 @@ const assert = require('assert');
 const router = express.Router();
 
 router.post('/', async (req, res) => {
-  console.log(req.session.passport.user.userinfo);
   await MongoClient.connect(
     process.env.MONGODB_URI,
     { useUnifiedTopology: true },
@@ -13,9 +12,13 @@ router.post('/', async (req, res) => {
       assert.equal(null, err);
       const db = client.db('test');
 
-      let cursor = await db
+      const user = req.session.passport.user.userinfo.sub;
+      const cursor = await db
         .collection('adjust-pricing')
-        .find({ item: req.body.item })
+        .find({
+          user,
+          'data.item': req.body.item
+        })
         .toArray();
 
       res.render('index', {
