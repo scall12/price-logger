@@ -5,31 +5,54 @@ const MongoClient = require('mongodb').MongoClient;
 const router = express.Router();
 
 router.post('/data', async (req, res) => {
-  console.log(req);
-  await MongoClient.connect(async (err, client) => {
-    assert.equal(null, err);
-    const db = client.db('test');
-    const {
-      item,
-      store,
-      currency,
-      price,
-      priceWeight,
-      priceWeightSelect
-    } = req.body;
+  await MongoClient.connect(
+    process.env.MONGODB_URI,
+    { useUnifiedTopology: true },
+    async (err, client) => {
+      assert.equal(null, err);
+      const db = client.db('test');
+      const collection = 'adjust-pricing';
 
-    db.collection('adjust-pricing').insertOne({
-      item,
-      store,
-      currency,
-      price,
-      priceWeight,
-      priceWeightSelect
-    });
-    res.redirect('/');
+      const user = req.session.passport.user.userinfo.sub;
+      const {
+        item,
+        store,
+        currency,
+        price,
+        priceWeight,
+        priceWeightSelect
+      } = req.body;
 
-    client.close();
-  });
+      const cursor = await db
+        .collection(collection)
+        .find({
+          user,
+          'data.item': item
+        })
+        .toArray();
+
+      if (cursor.length) {
+        // Show message saying the item already exists.
+        console.log('Already Exists');
+      } else {
+        await db.collection(collection).insertOne({
+          user,
+          data: {
+            item,
+            store,
+            currency,
+            price,
+            priceWeight,
+            priceWeightSelect
+          }
+        });
+      }
+
+      res.redirect('/');
+
+      client.close();
+    }
+  );
 });
 
 module.exports = router;

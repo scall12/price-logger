@@ -35,7 +35,7 @@ app.use(inputRouter);
 app.get('/', (req, res) => {
   res.render(__dirname + '/views/index.ejs');
   if (req.userContext) {
-    console.log(req.userContext.userinfo.preferred_username);
+    console.log(req.userContext.userinfo.sub);
   }
 });
 
