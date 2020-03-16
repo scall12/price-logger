@@ -10,14 +10,15 @@ window.addEventListener('load', event => {
 
   // Retrieve JSON data from hidden <p>
   const cursor = document.querySelector('#cursor').innerText.trim();
-  const data = JSON.parse(cursor);
+  const results = JSON.parse(cursor);
+  console.log(results);
   document.querySelector('#cursor').remove();
 
   let i = 1;
   let j = 1;
 
   // Fill table body
-  for (let object of data) {
+  for (let object of results) {
     // Create and append tr elements in thead and tbody
     let trHead = document.createElement('tr');
     if (i === 1) {
@@ -27,7 +28,7 @@ window.addEventListener('load', event => {
     tr.setAttribute('id', `tr${i}`);
     tbody.appendChild(tr);
 
-    for (let atr in object) {
+    for (let atr in object.data) {
       // Skip creating and populating table for these key pairs
       const skipCols = ['_id', 'currency', 'priceWeightSelect'];
       if (skipCols.includes(atr)) {
@@ -43,25 +44,31 @@ window.addEventListener('load', event => {
 
       // Create and append td elements
       let td = document.createElement('td');
-      td.innerText = object[atr];
+      td.innerText = object.data[atr];
       td.setAttribute('id', `td${j}`);
       td.classList.add(`${atr}`);
       tr.appendChild(td);
 
       // Add currency char
       if (parseFloat(td.innerText)) {
-        if (object.currency === 'gbp') {
-          td.innerText = '£'.concat(object[atr].toString());
-        } else if (object.currency === 'usd') {
-          td.innerText = '$'.concat(object[atr].toString());
+        if (object.data.currency === 'gbp') {
+          td.innerText = '£'.concat(object.data[atr].toString());
+        } else if (object.data.currency === 'usd') {
+          td.innerText = '$'.concat(object.data[atr].toString());
         }
       }
 
       // If price/weight data exists, then combine the
       // price/weight number with the descriptor string
-      if (td.classList.contains('priceWeight')) {
+      if (td.classList.contains('priceWeight') && td.innerText !== '') {
         th.innerText = 'Price/Weight';
-        td.innerText = td.innerText.concat('/', object['priceWeightSelect']);
+        td.innerText = td.innerText.concat(
+          '/',
+          object.data['priceWeightSelect']
+        );
+      } else if (td.classList.contains('priceWeight')) {
+        th.innerText = 'Price/Weight';
+        td.innerText = 'N/A';
       }
       j++;
     }
