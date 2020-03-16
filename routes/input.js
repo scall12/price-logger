@@ -2,9 +2,10 @@ const express = require('express');
 const assert = require('assert');
 const MongoClient = require('mongodb').MongoClient;
 
+const oidc = require('../okta');
 const router = express.Router();
 
-router.post('/data', async (req, res) => {
+router.post('/data', oidc.ensureAuthenticated(), async (req, res) => {
   await MongoClient.connect(
     process.env.MONGODB_URI,
     { useUnifiedTopology: true },
