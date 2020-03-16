@@ -12,7 +12,7 @@ router.post('/data', oidc.ensureAuthenticated(), async (req, res) => {
     async (err, client) => {
       assert.equal(null, err);
       const db = client.db('test');
-      const collection = 'adjust-pricing';
+      const collection = 'test';
 
       const user = req.session.passport.user.userinfo.sub;
       const {
@@ -28,7 +28,8 @@ router.post('/data', oidc.ensureAuthenticated(), async (req, res) => {
         .collection(collection)
         .find({
           user,
-          'data.item': item
+          item,
+          store
         })
         .toArray();
 
@@ -38,14 +39,12 @@ router.post('/data', oidc.ensureAuthenticated(), async (req, res) => {
       } else {
         await db.collection(collection).insertOne({
           user,
-          data: {
-            item,
-            store,
-            currency,
-            price,
-            priceWeight,
-            priceWeightSelect
-          }
+          item,
+          store,
+          currency,
+          price: parseFloat(price),
+          priceWeight: parseFloat(priceWeight),
+          priceWeightSelect
         });
       }
 

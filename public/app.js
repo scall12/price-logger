@@ -11,8 +11,6 @@ window.addEventListener('load', event => {
   // Retrieve JSON data from hidden <p>
   const cursor = document.querySelector('#cursor').innerText.trim();
   const results = JSON.parse(cursor);
-  console.log(results);
-  document.querySelector('#cursor').remove();
 
   let i = 1;
   let j = 1;
@@ -28,9 +26,9 @@ window.addEventListener('load', event => {
     tr.setAttribute('id', `tr${i}`);
     tbody.appendChild(tr);
 
-    for (let atr in object.data) {
+    for (let atr in object) {
       // Skip creating and populating table for these key pairs
-      const skipCols = ['_id', 'currency', 'priceWeightSelect'];
+      const skipCols = ['_id', 'user', 'currency', 'priceWeightSelect'];
       if (skipCols.includes(atr)) {
         continue;
       }
@@ -44,17 +42,17 @@ window.addEventListener('load', event => {
 
       // Create and append td elements
       let td = document.createElement('td');
-      td.innerText = object.data[atr];
+      td.innerText = object[atr];
       td.setAttribute('id', `td${j}`);
       td.classList.add(`${atr}`);
       tr.appendChild(td);
 
       // Add currency char
       if (parseFloat(td.innerText)) {
-        if (object.data.currency === 'gbp') {
-          td.innerText = '£'.concat(object.data[atr].toString());
-        } else if (object.data.currency === 'usd') {
-          td.innerText = '$'.concat(object.data[atr].toString());
+        if (object.currency === 'gbp') {
+          td.innerText = '£'.concat(object[atr].toString());
+        } else if (object.currency === 'usd') {
+          td.innerText = '$'.concat(object[atr].toString());
         }
       }
 
@@ -62,10 +60,7 @@ window.addEventListener('load', event => {
       // price/weight number with the descriptor string
       if (td.classList.contains('priceWeight') && td.innerText !== '') {
         th.innerText = 'Price/Weight';
-        td.innerText = td.innerText.concat(
-          '/',
-          object.data['priceWeightSelect']
-        );
+        td.innerText = td.innerText.concat('/', object['priceWeightSelect']);
       } else if (td.classList.contains('priceWeight')) {
         th.innerText = 'Price/Weight';
         td.innerText = 'N/A';
@@ -98,4 +93,6 @@ window.addEventListener('load', event => {
     thPriceWeight.classList.add('rankBy');
     rankBy(priceWeights);
   });
+
+  document.querySelector('#cursor').remove();
 });

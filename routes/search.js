@@ -15,10 +15,10 @@ router.post('/', oidc.ensureAuthenticated(), async (req, res) => {
 
       const user = req.session.passport.user.userinfo.sub;
       const cursor = await db
-        .collection('adjust-pricing')
+        .collection('test')
         .find({
           user,
-          'data.item': req.body.item
+          item: req.body.item
         })
         .toArray();
 

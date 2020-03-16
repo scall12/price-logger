@@ -34,9 +34,9 @@ app.use(inputRouter);
 
 app.get('/', (req, res) => {
   res.render(__dirname + '/views/index.ejs');
-  if (req.userContext) {
-    console.log(req.userContext.userinfo.sub);
-  }
+  // if (req.userContext) {
+  //   console.log(req.userContext.userinfo.sub);
+  // }
 });
 
 oidc.on('ready', () => {
