@@ -1,38 +1,35 @@
 const express = require('express');
-const MongoClient = require('mongodb').MongoClient;
 const assert = require('assert');
+const MongoClient = require('mongodb').MongoClient;
 
 const router = express.Router();
 
 router.post('/data', async (req, res) => {
-  await MongoClient.connect(
-    process.env.MONGODB_URI,
-    { useUnifiedTopology: true },
-    async (err, client) => {
-      assert.equal(null, err);
-      const db = client.db('test');
+  console.log(req);
+  await MongoClient.connect(async (err, client) => {
+    assert.equal(null, err);
+    const db = client.db('test');
+    const {
+      item,
+      store,
+      currency,
+      price,
+      priceWeight,
+      priceWeightSelect
+    } = req.body;
 
-      const {
-        item,
-        store,
-        currency,
-        price,
-        priceWeight,
-        priceWeightSelect
-      } = req.body;
-      await db.collection('adjust-pricing').insertOne({
-        item,
-        store,
-        currency,
-        price,
-        priceWeight,
-        priceWeightSelect
-      });
-      res.redirect('/');
+    db.collection('adjust-pricing').insertOne({
+      item,
+      store,
+      currency,
+      price,
+      priceWeight,
+      priceWeightSelect
+    });
+    res.redirect('/');
 
-      client.close();
-    }
-  );
+    client.close();
+  });
 });
 
 module.exports = router;

@@ -4,13 +4,15 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta http-equiv="X-UA-Compatible" content="ie=edge" />
-    <script src="https://unpkg.com/tesseract.js@v2.0.2/dist/tesseract.min.js"></script>
     <link rel="stylesheet" href="/style.css" type="text/css" />
     <title>Price Data</title>
   </head>
   <body>
     <form method="GET" action="/login">
       <button type="submit">Log In</button>
+    </form>
+    <form method="POST" action="/logout">
+      <button id="logout-button" type="submit">Log Out</button>
     </form>
 
     <section id="intro">
@@ -125,7 +127,7 @@
         </div>
       </section>
     </section>
-    <script src="../utils.js"></script>
+    <script src="utils.js"></script>
     <!-- <script src="./dist/index.js"></script> -->
     <!-- <script src="js/tesseract.js"></script>
     <script src="js/app.js"></script> -->

@@ -5,6 +5,7 @@ const assert = require('assert');
 const router = express.Router();
 
 router.post('/', async (req, res) => {
+  console.log(req.session.passport.user.userinfo);
   await MongoClient.connect(
     process.env.MONGODB_URI,
     { useUnifiedTopology: true },

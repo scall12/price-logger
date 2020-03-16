@@ -2,13 +2,18 @@ require('dotenv').config();
 
 const express = require('express');
 const bodyparser = require('body-parser');
-const { ExpressOIDC } = require('@okta/oidc-middleware');
 const session = require('express-session');
+const MongoDBStore = require('connect-mongodb-session')(session);
 
+const oidc = require('./okta');
 const searchRouter = require('./routes/search');
 const inputRouter = require('./routes/input');
 
 const app = express();
+const store = new MongoDBStore({
+  uri: process.env.MONGODB_URI,
+  collection: 'sessions'
+});
 
 app.set('view engine', 'ejs');
 
@@ -16,18 +21,10 @@ app.use(
   session({
     secret: process.env.APP_SECRET,
     resave: true,
-    saveUninitialized: false
+    saveUninitialized: true,
+    store: store
   })
 );
-
-const oidc = new ExpressOIDC({
-  issuer: `${process.env.ORG_URL}/oauth2/default`,
-  client_id: process.env.CLIENT_ID,
-  client_secret: process.env.CLIENT_SECRET,
-  redirect_uri: `${process.env.HOST_URL}/authorization-code/callback`,
-  scope: 'openid profile',
-  appBaseUrl: process.env.HOST_URL
-});
 
 app.use(oidc.router);
 app.use(bodyparser.urlencoded({ extended: true }));
@@ -36,7 +33,10 @@ app.use(searchRouter);
 app.use(inputRouter);
 
 app.get('/', (req, res) => {
-  res.sendFile(__dirname + '/views/home.html');
+  res.render(__dirname + '/views/index.ejs');
+  if (req.userContext) {
+    console.log(req.userContext.userinfo.preferred_username);
+  }
 });
 
 oidc.on('ready', () => {
