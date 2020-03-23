@@ -63,9 +63,19 @@ table {
   text-transform: capitalize;
 }
 
+nav {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-end;
+}
+
 th,
 td {
   border: 1px solid var(--accent-color-silver);
+}
+
+.nav-item {
+  margin: 0rem 0.5rem;
 }
 
 .flex {

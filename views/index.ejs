@@ -5,22 +5,31 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta http-equiv="X-UA-Compatible" content="ie=edge" />
     <link rel="stylesheet" href="/style.css" type="text/css" />
-    <title>Price Data</title>
+    <title>Opti-Shop</title>
   </head>
   <body>
-    <form method="GET" action="/login">
-      <button type="submit">Log In</button>
-    </form>
-    <form method="POST" action="/logout">
-      <button id="logout-button" type="submit">Log Out</button>
-    </form>
+    <header>
+      <nav>
+        <div class="nav-item">
+          <form method="GET" action="/login">
+            <button type="submit">Log In</button>
+          </form>
+        </div>
+        <div class="nav-item">
+          <form method="POST" action="/logout">
+            <button id="logout-button" type="submit">Log Out</button>
+          </form>
+        </div>
+      </nav>
+    </header>
 
     <section id="intro">
-      <h1>Store Prices Database</h1>
+      <h1>Opti-Shop</h1>
       <h2>Instructions</h2>
       <p>
-        Type the name of an item you have previously entered into the search
-        bar.
+        Enter price information for a store item into the form below. Items that
+        have been entered previously can be searched and the prices in various
+        stores will be compared in a chart below.
       </p>
     </section>
 
