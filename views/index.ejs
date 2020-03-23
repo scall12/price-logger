@@ -41,7 +41,7 @@
             <input
               id="search-bar"
               type="text"
-              placeholder="Oranges; Bananas; Oatmeal"
+              placeholder="Oranges"
               name="item"
             />
           </div>
@@ -129,11 +129,9 @@
       </section>
 
       <section id="chart">
-        <div id="chart-div">
-          <p id="cursor" hidden>
-            <% if (locals.cursor){ %> <%= JSON.stringify(cursor) %> <% } %>
-          </p>
-        </div>
+        <p id="cursor" hidden>
+          <% if (locals.cursor){ %> <%= JSON.stringify(cursor) %> <% } %>
+        </p>
       </section>
     </section>
     <script src="utils.js"></script>
