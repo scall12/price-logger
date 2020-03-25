@@ -5,6 +5,7 @@
   --accent-color-red: #ff6b6b;
   --accent-color-silver: #848c8e;
   --table-green: #2ecc40;
+  --submit-green: #86cb92;
 }
 
 @media (min-width: 760px) {
@@ -36,7 +37,6 @@ p {
 
 section {
   margin: 1rem auto;
-  /* border-style: solid; */
 }
 
 input,
@@ -53,6 +53,12 @@ select {
 
 input[type='checkbox'] {
   width: 1.25rem;
+}
+
+input[type='submit'] {
+  background-color: var(--accent-color-silver);
+  color: var(--main-text-color);
+  width: 50%;
 }
 
 table {
@@ -153,4 +159,12 @@ td {
 
 #check-div {
   height: 50px;
+}
+
+#view-all-form {
+  padding: 0rem 1rem;
+}
+
+#submit-div {
+  align-items: center;
 }

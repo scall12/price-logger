@@ -8,6 +8,7 @@ const MongoDBStore = require('connect-mongodb-session')(session);
 const oidc = require('./okta');
 const searchRouter = require('./routes/search');
 const inputRouter = require('./routes/input');
+const dataRouter = require('./routes/view-all');
 
 const app = express();
 const store = new MongoDBStore({
@@ -31,6 +32,7 @@ app.use(bodyparser.urlencoded({ extended: true }));
 app.use(express.static('public'));
 app.use(searchRouter);
 app.use(inputRouter);
+app.use(dataRouter);
 
 app.get('/', (req, res) => {
   res.render(__dirname + '/views/index.ejs');

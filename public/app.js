@@ -1,23 +1,23 @@
 window.addEventListener('load', event => {
   // Table boilerplate
-  const chartSection = document.querySelector('#chart');
+  const chartDiv = document.querySelector('#chart-div');
 
-  const chartDiv = document.createElement('div');
   const table = document.createElement('table');
   const thead = document.createElement('thead');
   const tbody = document.createElement('tbody');
   const p = document.createElement('p');
 
-  chartSection.append(p, chartDiv);
-  chartDiv.appendChild(table);
+  chartDiv.append(p, table);
   table.append(thead, tbody);
-
-  p.innerText =
-    'Filter for the store with the best price by clicking either the Price or the Price/Weight.';
 
   // Retrieve JSON data from hidden <p>
   const cursor = document.querySelector('#cursor').innerText.trim();
   const results = JSON.parse(cursor);
+
+  if (cursor) {
+    p.innerText =
+      'Filter for the store with the best price by clicking either the Price or the Price/Weight.';
+  }
 
   let i = 1;
   let j = 1;
