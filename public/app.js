@@ -14,6 +14,20 @@ window.addEventListener('load', event => {
   const cursor = document.querySelector('#cursor').innerText.trim();
   const results = JSON.parse(cursor);
 
+  // Sort results alphabetically by item name
+  results.sort((a, b) => {
+    let itemA = a.item.toLowerCase();
+    let itemB = b.item.toLowerCase();
+
+    if (itemA < itemB) {
+      return -1;
+    } else if (itemA > itemB) {
+      return 1;
+    } else {
+      return 0;
+    }
+  });
+
   if (cursor) {
     p.innerText =
       'Filter for the store with the best price by clicking either the Price or the Price/Weight.';
@@ -82,24 +96,26 @@ window.addEventListener('load', event => {
   const prices = document.querySelectorAll('tbody .price');
   const priceWeights = document.querySelectorAll('tbody .priceWeight');
 
-  removeItemDuplicates(items);
-  rankBy(prices);
-
-  // Highlight row by either price or price/weight
-  const thPrice = document.querySelector('thead .price');
-  const thPriceWeight = document.querySelector('thead .priceWeight');
-
-  thPrice.classList.add('rankBy');
-  thPrice.addEventListener('click', () => {
-    thPriceWeight.classList.remove('rankBy');
-    thPrice.classList.add('rankBy');
+  if (window.location.href.includes('search')) {
+    removeItemDuplicates(items);
     rankBy(prices);
-  });
-  thPriceWeight.addEventListener('click', () => {
-    thPrice.classList.remove('rankBy');
-    thPriceWeight.classList.add('rankBy');
-    rankBy(priceWeights);
-  });
+
+    // Highlight row by either price or price/weight
+    const thPrice = document.querySelector('thead .price');
+    const thPriceWeight = document.querySelector('thead .priceWeight');
+
+    thPrice.classList.add('rankBy');
+    thPrice.addEventListener('click', () => {
+      thPriceWeight.classList.remove('rankBy');
+      thPrice.classList.add('rankBy');
+      rankBy(prices);
+    });
+    thPriceWeight.addEventListener('click', () => {
+      thPrice.classList.remove('rankBy');
+      thPriceWeight.classList.add('rankBy');
+      rankBy(priceWeights);
+    });
+  }
 
   document.querySelector('#cursor').remove();
 });
