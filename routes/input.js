@@ -42,7 +42,7 @@ router.post('/data', oidc.ensureAuthenticated(), async (req, res) => {
           user,
           item,
           store,
-          quantity,
+          quantity: parseInt(quantity),
           currency,
           price: parseFloat(price),
           priceWeight: parseFloat(priceWeight),
