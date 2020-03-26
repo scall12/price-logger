@@ -52,9 +52,6 @@
         <p id="cursor" hidden>
           <% if (locals.cursor){ %> <%= JSON.stringify(cursor) %> <% } %>
         </p>
-        <p id="event-type" hidden>
-          <% if (locals.type){ %> <%= type %> <% } %>
-        </p>
         <div id="chart-div"></div>
         <div id="view-all-div" class="form-item">
           <form id="view-all-form" action="/view-all" method="POST">

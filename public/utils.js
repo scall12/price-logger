@@ -30,7 +30,7 @@ function removeItemDuplicates(arr) {
       element.classList.add('no-highlight');
       let del = document.querySelector(`#${arr[i + 1].getAttribute('id')}`);
       del.remove();
+      i++;
     }
-    i++;
   }
 }
