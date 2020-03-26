@@ -36,7 +36,7 @@
     <section id="main">
       <section id="search" class="form-group">
         <h2>Search</h2>
-        <form id="search-form" action="/" method="POST">
+        <form id="search-form" action="/search" method="POST">
           <div class="form-item">
             <input
               id="search-bar"
@@ -46,6 +46,21 @@
             />
           </div>
         </form>
+      </section>
+
+      <section id="chart">
+        <p id="cursor" hidden>
+          <% if (locals.cursor){ %> <%= JSON.stringify(cursor) %> <% } %>
+        </p>
+        <p id="event-type" hidden>
+          <% if (locals.type){ %> <%= type %> <% } %>
+        </p>
+        <div id="chart-div"></div>
+        <div id="view-all-div" class="form-item">
+          <form id="view-all-form" action="/view-all" method="POST">
+            <input id="view-all" type="submit" value="View All Items" />
+          </form>
+        </div>
       </section>
 
       <section id="data-input" class="form-group">
@@ -123,18 +138,6 @@
             <input type="submit" />
           </div>
         </form>
-      </section>
-
-      <section id="chart">
-        <p id="cursor" hidden>
-          <% if (locals.cursor){ %> <%= JSON.stringify(cursor) %> <% } %>
-        </p>
-        <div id="chart-div"></div>
-        <div id="view-all-div" class="form-item">
-          <form id="view-all-form" action="/view-all" method="POST">
-            <input id="view-all" type="submit" value="View All Items" />
-          </form>
-        </div>
       </section>
     </section>
     <script src="utils.js"></script>
