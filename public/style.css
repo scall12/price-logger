@@ -80,6 +80,10 @@ td {
   border: 1px solid var(--accent-color-silver);
 }
 
+th {
+  text-transform: capitalize !important;
+}
+
 .nav-item {
   margin: 0rem 0.5rem;
 }
@@ -121,6 +125,10 @@ td {
 
 .rankBy {
   color: var(--table-green);
+}
+
+.item {
+  text-transform: none;
 }
 
 #intro {
