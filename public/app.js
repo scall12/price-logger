@@ -13,6 +13,7 @@ window.addEventListener('load', event => {
   // Retrieve JSON data from hidden <p>
   const cursor = document.querySelector('#cursor').innerText.trim();
   const results = JSON.parse(cursor);
+  console.log(results);
 
   // Sort results alphabetically by item name
   results.sort((a, b) => {
@@ -93,28 +94,29 @@ window.addEventListener('load', event => {
 
   // Remove item duplicates and highlight lowest price row
   const items = document.querySelectorAll('tbody .item');
-  const prices = document.querySelectorAll('tbody .price');
-  const priceWeights = document.querySelectorAll('tbody .priceWeight');
+  // const prices = document.querySelectorAll('tbody .price');
+  // const priceWeights = document.querySelectorAll('tbody .priceWeight');
+
+  // Highlight row by either price or price/weight
+  const thPrice = document.querySelector('thead .price');
+  const thPriceWeight = document.querySelector('thead .priceWeight');
+
+  rankBy(results, 'price');
+  thPrice.classList.add('rankBy');
+
+  thPrice.addEventListener('click', () => {
+    thPriceWeight.classList.remove('rankBy');
+    thPrice.classList.add('rankBy');
+    rankBy(results, 'price');
+  });
+  thPriceWeight.addEventListener('click', () => {
+    thPrice.classList.remove('rankBy');
+    thPriceWeight.classList.add('rankBy');
+    rankBy(results, 'priceWeight');
+  });
 
   if (window.location.href.includes('search')) {
     removeItemDuplicates(items);
-    rankBy(prices);
-
-    // Highlight row by either price or price/weight
-    const thPrice = document.querySelector('thead .price');
-    const thPriceWeight = document.querySelector('thead .priceWeight');
-
-    thPrice.classList.add('rankBy');
-    thPrice.addEventListener('click', () => {
-      thPriceWeight.classList.remove('rankBy');
-      thPrice.classList.add('rankBy');
-      rankBy(prices);
-    });
-    thPriceWeight.addEventListener('click', () => {
-      thPrice.classList.remove('rankBy');
-      thPriceWeight.classList.add('rankBy');
-      rankBy(priceWeights);
-    });
   }
 
   document.querySelector('#cursor').remove();
