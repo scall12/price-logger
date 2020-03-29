@@ -1,13 +1,16 @@
 function removeItemDuplicates(arr) {
-  // Compare the items array and remove duplicates
+  let j = 1;
   for (let i = 0; i < arr.length; i++) {
-    if (arr[i].innerText === arr[i + 1].innerText) {
-      let element = document.querySelector(`#${arr[i].getAttribute('id')}`);
-      element.setAttribute('rowspan', 2);
-      element.classList.add('no-highlight');
-      let del = document.querySelector(`#${arr[i + 1].getAttribute('id')}`);
-      del.remove();
-      i++;
+    const filtered = arr.filter(element => element.item === arr[i].item);
+    if (filtered.length > 1) {
+      let element = document.querySelector(`tbody #tr${i + 1} td`);
+      if (element.className.includes('item') && j === 1) {
+        element.setAttribute('rowspan', filtered.length);
+        element.classList.add('no-highlight');
+      } else if (element.className.includes('item') && j > 1) {
+        element.remove();
+      }
+      j++;
     }
   }
 }

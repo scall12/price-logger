@@ -13,7 +13,6 @@ window.addEventListener('load', event => {
   // Retrieve JSON data from hidden <p>
   const cursor = document.querySelector('#cursor').innerText.trim();
   const results = JSON.parse(cursor);
-  console.log(results);
 
   // Sort results alphabetically by item name
   results.sort((a, b) => {
@@ -116,7 +115,7 @@ window.addEventListener('load', event => {
   });
 
   if (window.location.href.includes('search')) {
-    removeItemDuplicates(items);
+    removeItemDuplicates(results);
   }
 
   document.querySelector('#cursor').remove();
