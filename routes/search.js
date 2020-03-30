@@ -13,7 +13,7 @@ router.post('/search', oidc.ensureAuthenticated(), async (req, res) => {
       assert.equal(null, err);
       const db = client.db('test');
 
-      const arr = req.body.item.split(';');
+      const arr = req.body.item.split(/; |;/gi);
 
       const user = req.session.passport.user.userinfo.sub;
       const cursor = await db
