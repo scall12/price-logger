@@ -35,7 +35,7 @@ app.use(inputRouter);
 app.use(dataRouter);
 
 app.get('/', (req, res) => {
-  res.render(__dirname + '/views/index.ejs');
+  res.render('index.ejs');
   // if (req.userContext) {
   //   console.log(req.userContext.userinfo.sub);
   // }
