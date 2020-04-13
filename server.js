@@ -13,7 +13,7 @@ const dataRouter = require('./routes/view-all');
 const app = express();
 const store = new MongoDBStore({
   uri: process.env.MONGODB_URI,
-  collection: 'sessions'
+  collection: 'sessions',
 });
 
 app.set('view engine', 'ejs');
@@ -23,13 +23,14 @@ app.use(
     secret: process.env.APP_SECRET,
     resave: true,
     saveUninitialized: true,
-    store: store
+    store: store,
   })
 );
 
 app.use(oidc.router);
 app.use(bodyparser.urlencoded({ extended: true }));
 app.use(express.static('public'));
+app.use(express.static('src'));
 app.use(searchRouter);
 app.use(inputRouter);
 app.use(dataRouter);
@@ -45,6 +46,6 @@ oidc.on('ready', () => {
   app.listen(3010, () => console.log('Started'));
 });
 
-oidc.on('error', err => {
+oidc.on('error', (err) => {
   console.log('Unable to configure ExpressOIDC', err);
 });

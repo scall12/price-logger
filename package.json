@@ -19,6 +19,8 @@
   "homepage": "https://github.com/scall12/price-logger#readme",
   "dependencies": {
     "@okta/oidc-middleware": "^4.0.0",
+    "babel-cli": "^6.26.0",
+    "babel-preset-react-app": "^3.1.2",
     "body-parser": "^1.19.0",
     "connect-mongodb-session": "^2.3.1",
     "dotenv": "^8.2.0",
@@ -30,5 +32,8 @@
   },
   "nodemonConfig": {
     "ignore": "results.json"
+  },
+  "devDependencies": {
+    "@babel/preset-react": "^7.9.4"
   }
 }

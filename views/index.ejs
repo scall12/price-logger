@@ -5,6 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta http-equiv="X-UA-Compatible" content="ie=edge" />
     <link rel="stylesheet" href="style.css" type="text/css" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/react/16.8.0/umd/react.development.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/react-dom/16.8.0/umd/react-dom.development.js"></script>
     <title>OptiShop</title>
   </head>
   <body>
@@ -59,6 +61,8 @@
           </form>
         </div>
       </section>
+
+      <div id="test-chart"></div>
 
       <section id="data-input" class="form-group">
         <h2>Input New Item Data</h2>
@@ -138,8 +142,19 @@
       </section>
     </section>
     <script src="utils.js"></script>
-    <!-- <script src="./dist/index.js"></script> -->
     <script src="app.js"></script>
-    <!-- <script src="app.js"></script> -->
+    <!-- Load React. -->
+    <!-- Note: when deploying, replace "development.js" with "production.min.js". -->
+    <script
+      src="https://unpkg.com/react@16/umd/react.development.js"
+      crossorigin
+    ></script>
+    <script
+      src="https://unpkg.com/react-dom@16/umd/react-dom.development.js"
+      crossorigin
+    ></script>
+
+    <!-- Load our React component. -->
+    <script src="/src/Chart.js"></script>
   </body>
 </html>
